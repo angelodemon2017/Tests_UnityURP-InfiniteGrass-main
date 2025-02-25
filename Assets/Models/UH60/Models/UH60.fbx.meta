@@ -1,0 +1,211 @@
+fileFormatVersion: 2
+guid: 3a42ad16f1612a849bef220dfcaaac54
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: cabinDoor_L
+    100002: cabinDoor_R
+    100004: Door_L
+    100006: Door_R
+    100008: main_rotor
+    100010: rear_rotor
+    100012: rear_Tyre
+    100014: Tyre_L
+    100016: tyre_R
+    100018: //RootNode
+    100020: Window_L1
+    100022: Window_L2
+    100024: window_R1
+    100026: Window_R2
+    100028: elevator.001
+    400000: cabinDoor_L
+    400002: cabinDoor_R
+    400004: Door_L
+    400006: Door_R
+    400008: main_rotor
+    400010: rear_rotor
+    400012: rear_Tyre
+    400014: Tyre_L
+    400016: tyre_R
+    400018: //RootNode
+    400020: Window_L1
+    400022: Window_L2
+    400024: window_R1
+    400026: Window_R2
+    400028: elevator.001
+    2100000: korpus
+    2100002: steklo
+    2100004: steko_2
+    2100006: 'Material #28'
+    2100008: mebel_salon
+    2100010: 'Material #30'
+    2100012: 'Material #37'
+    2100014: 'Material #33'
+    2100016: 'Material #34'
+    2100018: 'Material #32'
+    2300000: cabinDoor_L
+    2300002: cabinDoor_R
+    2300004: Door_L
+    2300006: Door_R
+    2300008: main_rotor
+    2300010: rear_rotor
+    2300012: rear_Tyre
+    2300014: Tyre_L
+    2300016: tyre_R
+    2300018: //RootNode
+    2300020: Window_L1
+    2300022: Window_L2
+    2300024: window_R1
+    2300026: Window_R2
+    2300028: elevator.001
+    3300000: cabinDoor_L
+    3300002: cabinDoor_R
+    3300004: Door_L
+    3300006: Door_R
+    3300008: main_rotor
+    3300010: rear_rotor
+    3300012: rear_Tyre
+    3300014: Tyre_L
+    3300016: tyre_R
+    3300018: //RootNode
+    3300020: Window_L1
+    3300022: Window_L2
+    3300024: window_R1
+    3300026: Window_R2
+    3300028: elevator.001
+    4300000: elevator
+    4300002: cabinDoor_L
+    4300004: cabinDoor_R
+    4300006: Door_R
+    4300008: Door_L
+    4300010: main_rotor
+    4300012: rear_rotor
+    4300014: tyre_R
+    4300016: rear_Tyre
+    4300018: Tyre_L
+    4300020: Window_L2
+    4300022: Window_L1
+    4300024: Window_R2
+    4300026: window_R1
+    4300028: elevator.001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #32'
+    second: {fileID: 2100000, guid: 24a556b342bf30248817584ca79e2392, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #33'
+    second: {fileID: 2100000, guid: 4be333da084b02b498c40af0579c8412, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #37'
+    second: {fileID: 2100000, guid: 072b4c2a3735d564090f0624263a7ffa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: korpus
+    second: {fileID: 2100000, guid: 454b483621dead74dbf4e340ff029670, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mebel_salon
+    second: {fileID: 2100000, guid: 24a556b342bf30248817584ca79e2392, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: steklo
+    second: {fileID: 2100000, guid: 9cc9152692e0d0c4e88c5fc3d154f0d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: steko_2
+    second: {fileID: 2100000, guid: dfaed74d52ff3614c929b0a331fffbe3, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

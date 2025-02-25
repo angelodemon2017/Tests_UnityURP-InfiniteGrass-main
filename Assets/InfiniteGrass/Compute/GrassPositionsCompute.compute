@@ -1,0 +1,101 @@
+#pragma kernel CSMain
+
+float _Spacing;
+float _DrawDistance;
+float _TextureUpdateThreshold;
+float _FullDensityDistance;
+
+int2 _GridStartIndex;
+int2 _GridSize;
+float3 _CameraPosition;
+float2 _CenterPos;
+float3 _BoundsMin;
+float3 _BoundsMax;
+
+float4x4 _VPMatrix;
+
+SamplerState linearClampSampler;
+
+//Generated and passedby the Custom Renderer Feature
+Texture2D<float2> _GrassHeightMapRT;
+Texture2D<float> _GrassMaskMapRT;
+//--------------------------------------------------
+
+AppendStructuredBuffer<float3> _GrassPositions;
+
+uint murmurHash3(int input) {
+	uint h = abs(input);
+	h ^= h >> 16;
+	h *= 0x85ebca6b;
+	h ^= h >> 13;
+	h *= 0xc2b2ae3d;
+	h ^= h >> 16;
+	return h;
+}
+
+float random(int index)
+{
+	return murmurHash3(index) / 4294967295.0;
+}
+
+float Remap(float In, float2 InMinMax, float2 OutMinMax)
+{
+    return OutMinMax.x + (In - InMinMax.x) * (OutMinMax.y - OutMinMax.x) / (InMinMax.y - InMinMax.x);
+}
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{   
+    int2 currentIndex = _GridStartIndex + id.xy;//Index in the Grid
+
+    float2 positionXZ = currentIndex * _Spacing;//Transform to World position
+
+    float2 randomOffset = float2(random(currentIndex.x * 5542 + currentIndex.y), random(currentIndex.y * 9824 + currentIndex.x));
+	positionXZ += (randomOffset * 2 - 1) * _Spacing;//Adding a small offset to it
+	
+    float2 uv = (positionXZ - _CenterPos) / (_TextureUpdateThreshold + _DrawDistance); uv = uv * 0.5 + 0.5;
+    
+    float2 heightMap = _GrassHeightMapRT.SampleLevel(linearClampSampler, uv, 0).rg;//Sampling the HeightMap Texture (Red Channel: Height, Green Channel: Area where grass should be spawned)
+    
+    float maskValue = _GrassMaskMapRT.SampleLevel(linearClampSampler, uv, 0).r;//Sampling the Mask Texture
+    //Since the mask map describes the density and not just areas where the grass should be or not
+    //We calculate a random number and test if it's bigger than the mask value
+    //if the mask value = 1, the random value will never reach 1 so the result is FALSE
+    //if the mask value = 0, the random value is always >= 0, so the result is TRUE
+    //if the mask value = 0.5, the result depends on the random value calculated
+    bool inMask = saturate(random(currentIndex.x * 9421 + currentIndex.y) - 0.001) >= maskValue;
+    
+    if (heightMap.g == 1 && inMask)
+    {
+        float positionY = Remap(heightMap.r, float2(0, 1), float2(_BoundsMin.y, _BoundsMax.y));//Reconstruct the Y position from the Height Map
+	
+        float3 positionWS = float3(positionXZ.x, positionY, positionXZ.y);
+
+        //Checking if the grass position is in the density level
+        float distanceFromCamera = length(_CameraPosition - positionWS);
+        //the D value simply increase each "_FullDensityDistance" from the camera
+        //if the distance between the position and the camera is less than the "_FullDensityDistance" : D = 0
+        //if the distance between the position and the camera is greater than the "_FullDensityDistance" but less than 2 * "_FullDensityDistance" : D = 1
+        uint d = uint(floor(distanceFromCamera / _FullDensityDistance));
+        d = 1 << d;//This is just another way of writting d = pow(2, d)
+        
+        //Again like what we did with mask, we calculate a random value, this time not a float but a uint that goes from 0 to the max possible value in the uint
+        //Then we test if the modulo of that random uint with the D value is equal to 0
+        //When D = 1 : every number modulo 1 equal to 0 so the result is always TRUE
+        //When D = 2 : approximatly 50% of the calculated random values gonna fail the test
+        //When D = 4 : approximatly 25% of the calculated random values gonna fail the test
+        bool insideDensityLevel = murmurHash3(currentIndex.x + currentIndex.y * 7954) % d == 0;
+
+        if (insideDensityLevel)
+        {
+            //Frustum culling using the clip position (Taken from Colin Leung repo)
+            float4 absPosCS = abs(mul(_VPMatrix, float4(positionWS, 1.0)));
+		
+            if (absPosCS.z <= absPosCS.w && absPosCS.y <= absPosCS.w * 1.5 && absPosCS.x <= absPosCS.w * 1.1 && absPosCS.w <= _DrawDistance)
+            {
+                //Finally after succeeding all the tests our little position is appended to the buffer
+                _GrassPositions.Append(positionWS);
+            }
+        }
+    }
+}
